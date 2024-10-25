@@ -11,7 +11,7 @@ id :2, task : 'Membuat API', completed: false
 },
 ];
 
-// GET /api/todos
+// GET /api/todos - Mendapatkan dan memunculkan
 router.get('/', (req, res) => {res.json(todos); });
 
 // POST /api/todos - Menambahkan todo baru
