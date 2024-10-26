@@ -42,7 +42,9 @@ router.put('/:id', (req, res) => {
         if (completed !== undefined) {
             todo.completed = completed;
         }
+        // Menampilkan task dan completed yang sudah diperbarui
         res.json(todo);
+        
     } else {
         res.status(404).json({ message: 'Todo not found' });
     }
