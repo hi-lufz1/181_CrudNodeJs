@@ -1,0 +1,178 @@
+/* Reset halaman */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #08090A; /* Warna latar belakang halaman */
+}
+
+.container {
+    flex: 1; /* Memastikan konten utama memakan ruang yang tersisa */
+}
+
+/* Hanya untuk halaman dengan kelas centered-page */
+body.centered-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style card */
+form {
+    width: 400px;
+    padding: 30px;
+    background-color: #ffffff; /* Warna latar belakang card */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+    text-align: center;
+}
+.btn-custom {
+    font-weight: bold;
+    color: #ffffff ;
+    background-color: #6F2CFF !important; //Override Bootstrap
+    border-color: #6F2CFF !important; //Override Bootstrap
+}
+
+
+.text-custom{
+    color: #6F2CFF;
+    font-weight: bold;
+}
+.btn-custom:hover {
+    color: #ffffff ;
+    background-color: #5a23cc !important;
+    border-color: #5a23cc !important;
+}
+
+.logo{
+    width: 36px;
+    height: 36px;
+    margin: 8px;
+    object-fit: cover;
+    border-radius: 9px; 
+    
+}
+
+/* Logo */
+form img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Header */
+form h1 {
+    font-weight: bold;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+/* Deskripsi di bawah judul */
+form p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+/* Input field */
+form .mb-3 {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.navbar .nav-link {
+    font-weight: bold; /* Menjadikan teks bold */
+}
+
+.navbar .nav-link:hover {
+    color: #6F2CFF !important; /* Warna ungu untuk hover */
+    text-decoration: underline; /* Garis bawah saat hover */
+}
+
+.navbar .btn-outline-danger {
+    border-color: #6F2CFF !important; /* Border merah */
+    color: #6F2CFF !important; /* Teks merah */
+}
+
+.navbar .btn-outline-danger:hover {
+    background-color: #6F2CFF !important;
+    color: #ffffff !important;
+}
+
+.footer {
+    background-color: #08090A; /* Warna hitam sesuai dengan background halaman */
+    color: #7B8992; /* Warna teks putih */
+    border-top: 1px solid #6c757d; /* Garis abu untuk memisahkan dengan isi halaman */
+}
+
+form .form-label {
+    font-size: 14px;
+    color: #333333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+form .form-control:focus {
+    border-color: #0366d6;
+}
+
+/* Tombol login */
+form .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0366d6;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form .btn-primary:hover {
+    background-color: #0053a3;
+}
+
+/* Link tambahan */
+form a {
+    color: #0366d6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+/* Styling untuk card */
+.todo-card {
+    transition: transform 0.3s ease;
+}
+
+.todo-card:hover {
+    transform: scale(1.05); /* Efek scale pada card ketika hover */
+}
+
+.card-body {
+    text-align: center;
+}
+

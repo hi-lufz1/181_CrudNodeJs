@@ -1,73 +1,112 @@
 <div class="container mt-5">
-    <h1 class="text-center">Todo List</h1>
+    <h1 class="text-center text-white fw-bold">Todo List</h1>
 
-    <!-- Form to Add New Todo -->
-    <form id="addTodoForm" class="my-4">
-        <div class="input-group">
-            <input type="text" id="newTask" class="form-control" placeholder="Add a new task..." required>
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary">Add Task</button>
+    <!-- Button to Add New Todo -->
+    <div class="text-center mb-4">
+        <button id="addTodoBtn" class="btn btn-custom fw-bold">Add Todo</button>
+    </div>
+
+  <!-- Modal to Add Todo -->
+<div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content d-flex justify-content-center align-items-center">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTodoModalLabel">Add New Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </form>
-
-    <!-- List of Todos -->
-    <ul id="todoList" class="list-group">
-        <% todos.forEach(todo=> { %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="<%= todo.completed ? 'completed' : '' %>">
-                    <%= todo.task %>
-                </span>
-                <div>
-                    <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">Edit</button>
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">Delete</button>
-                </div>
-            </li>
-            <% }); %>
-    </ul>
-
-    <!-- Edit Todo Modal -->
-    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Todo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editTodoForm">
-                        <div class="form-group">
-                            <label for="editTask">Task</label>
-                            <input type="text" id="editTask" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-                    </form>
+            <div class="modal-body">
+                <!-- Card for Centered Content -->
+                <div class="card shadow-lg" style="width: 100%;">
+                    <div class="card-body">
+                        <form id="addTodoForm">
+                            <div class="form-group">
+                                <label for="newTask">Task:</label>
+                                <input type="text" id="newTask" class="form-control" placeholder="Enter your task" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-custom mt-3">Add Task</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+    
+    <!-- Grid to Display Todos -->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4" id="todoList">
+        <% todos.forEach(todo => { %>
+            <div class="col mb-4">
+                <div class="card todo-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Todo</h5>
+                        <p class="card-text"><%= todo.task %></p>
+                        <button class="btn btn-sm btn-custom fw-light editBtn" data-id="<%= todo.id %>">Edit</button>
+                        <button class="btn btn-sm btn-custom fw-light deleteBtn" data-id="<%= todo.id %>">Delete</button>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<!-- Edit Todo Modal -->
+<div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content d-flex justify-content-center align-items-center">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title" id="editModalLabel">Edit Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Card for Centered Content -->
+                <div class="card shadow-lg" style="width: 100%;">
+                    <div class="card-body">
+                        <form id="editTodoForm">
+                            <div class="form-group">
+                                <label for="editTask">Task</label>
+                                <input type="text" id="editTask" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-custom mt-3">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Add new todo
+         // Show Modal when "Add Todo" button is clicked
+         $('#addTodoBtn').on('click', function () {
+            $('#addTodoModal').modal('show'); // Show the modal
+        });
+
+        // Handle form submission to add Todo
         $('#addTodoForm').on('submit', function (e) {
             e.preventDefault();
             const task = $('#newTask').val().trim();
             if (task) {
                 $.ajax({
-                    url: '/todos',
+                    url: '/todos', // Ubah dengan endpoint yang sesuai
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ task: task }),
-                    success: function (newTodo) {
-                        location.reload(); // Reload to show the new todo
+                    data: JSON.stringify({ task: task }), // Kirim task yang ditambahkan
+                    success: function (response) {
+                        $('#addTodoModal').modal('hide'); // Hide the modal after adding Todo
+                        $('#newTask').val(''); // Clear input field
+                        location.reload(); // Reload to show the updated Todo list
                     },
                     error: function (error) {
                         console.error("Error adding task:", error.responseText);
                     }
                 });
+            } else {
+                alert("Task cannot be empty!"); // Alert if task is empty
             }
         });
 

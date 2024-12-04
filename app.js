@@ -1,6 +1,7 @@
-
 const express = require('express');
+const path = require('path');
 const app = express();
+
 //const todoRoutes = require('./routes/todo.js');
 const todoRoutes = require('./routes/tododb.js');
 require('dotenv').config();
@@ -11,9 +12,29 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const { isAuthenticated } = require('./middlewares/middleware.js');
 
+// Middleware untuk folder public
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(expressLayouts);
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.locals.showNav = true; // Secara default navbar ditampilkan
+    next();
+});
+
+app.use((req, res, next) => {
+    res.locals.showFoot = true; // Secara default navbar ditampilkan
+    next();
+});
+
+// Middleware untuk mengatur default nilai layoutClass
+app.use((req, res, next) => {
+    res.locals.layoutClass = ''; // Default kosong
+    next();
+});
+
 
 // Konfigurasi express-session
 app.use(session({
@@ -28,6 +49,7 @@ app.use('/', authRoutes);
 
 app.use('/todos',todoRoutes);
 
+// Set view engine (contoh menggunakan EJS)
 app.set('view engine', 'ejs');
 
 app.get('/', isAuthenticated, (req, res) => {

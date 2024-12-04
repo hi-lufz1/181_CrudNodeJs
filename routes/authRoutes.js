@@ -19,6 +19,9 @@ router.post('/signup', (req, res) => {
 
 // Route untuk menampilkan form signup
 router.get('/signup', (req, res) => {
+    res.locals.showNav = false; // Sembunyikan navbar
+    res.locals.showFoot = false;
+    res.locals.layoutClass = 'centered-page'; // Halaman dengan card di tengah
     res.render('signup', {
         layout: 'layouts/main-layout'
     });
@@ -45,6 +48,9 @@ router.post('/login', (req, res) => {
 
 // Route untuk menampilkan form login
 router.get('/login', (req, res) => {
+    res.locals.showNav = false; // Sembunyikan navbar
+    res.locals.showFoot = false;
+    res.locals.layoutClass = 'centered-page'; // Halaman dengan card di tengah
     res.render('login', {
         layout: 'layouts/main-layout'
     });
